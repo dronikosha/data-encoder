@@ -39,5 +39,5 @@ de = encoder.blowfish_encrypt(message, key)
 print("Encrypted data: ", en)
 print("Decrypted data: ", de)
 ```
-https://pypi.org/project/data-encoder/
+https://pypi.org/project/data-encoder/ <br>
 https://github.com/dronikosha/data_encoder
