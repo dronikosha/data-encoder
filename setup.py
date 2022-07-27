@@ -7,13 +7,13 @@ here = os.path.abspath(os.path.dirname(__file__))
 with codecs.open(os.path.join(here, "README.md"), encoding="utf-8") as fh:
     long_description = "\n" + fh.read()
 
-VERSION = '0.0.3'
+VERSION = '0.0.4'
 DESCRIPTION = 'Encrypting and Decrypting data'
 LONG_DESCRIPTION = 'A package that allows you to encrypt and decrypt data using the best algorithms to date.'
 
 # Setting up
 setup(
-    name="data-encoder",
+    name="data_encoder",
     version=VERSION,
     author="Dronikon (Nikita Derevyankin)",
     author_email="<dronikosha@gmail.com>",

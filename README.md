@@ -1,4 +1,4 @@
-# data-encoder
+# data_encoder
 
 The project is being finalized, plans include adding more algorithms
 
@@ -7,7 +7,7 @@ Developed by Nikita Derevyankin (Dronikon) (c) 2022
 ## Installation
 
 ```bash
-$ pip install data-encoder
+$ pip install data_encoder
 ```
 
 ## Examples of How To Use
@@ -15,7 +15,7 @@ $ pip install data-encoder
 Advanced Encryption Standard
 
 ```python
-from data-encoder import Encoder
+from data_encoder import Encoder
 
 encoder = Encoder()
 message = "test"
@@ -29,7 +29,7 @@ print("Decrypted data: ", de)
 Blowfish
 
 ```python
-from data-encoder import Encoder
+from data_encoder import Encoder
 
 encoder = Encoder()
 message = "test"
@@ -40,3 +40,4 @@ print("Encrypted data: ", en)
 print("Decrypted data: ", de)
 ```
 https://pypi.org/project/data-encoder/
+https://github.com/dronikosha/data_encoder
