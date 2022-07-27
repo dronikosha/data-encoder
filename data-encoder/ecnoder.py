@@ -23,7 +23,19 @@ class Encoder(object):
         last_character = plain_text[len(plain_text) - 1:]
         return plain_text[:-ord(last_character)]
 
-    def encrypt(self, plain_text: str, key: str) -> str:
+    def aes_encrypt(self, plain_text: str, key: str) -> str:
+        """
+        Algorithm - AES
+        One of the best ways to encrypt data, 
+        in this case using 256 bit form
+
+        Args:
+            plain_text (str): source text to encrypt
+            key (str): the key with which the message will be decrypted
+
+        Returns:
+            str: encrypted text
+        """
         plain_text = self.__pad(plain_text)
         iv = Random.new().read(self.block_size)
         cipher = AES.new(hashlib.sha256(
@@ -31,7 +43,16 @@ class Encoder(object):
         encrypted_text = cipher.encrypt(plain_text.encode())
         return b64encode(iv + encrypted_text).decode("utf-8")
 
-    def decrypt(self, encrypted_text: str, key: str) -> str:
+    def aes_decrypt(self, encrypted_text: str, key: str) -> str:
+        """
+
+        Args:
+            encrypted_text (str): encrypted text
+            key (str): key used for encryption
+
+        Returns:
+            str: source text
+        """
         encrypted_text = b64decode(encrypted_text)
         iv = encrypted_text[:self.block_size]
         cipher = AES.new(hashlib.sha256(
@@ -43,6 +64,6 @@ class Encoder(object):
     # encoder = Encoder()
     # message = "test"
     # key = "12345"
-    # en = encoder.encrypt(message, key)
+    # en = encoder.aes_encrypt(message, key)
     # print(en)
-    # print(encoder.decrypt(en, key))
+    # print(encoder.aes_decrypt(en, key))
