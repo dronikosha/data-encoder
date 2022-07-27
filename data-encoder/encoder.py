@@ -64,13 +64,6 @@ class Encoder(object):
             encrypted_text[self.block_size:]).decode("utf-8")
         return self.__unpad(plain_text)
 
-    # encoder = Encoder()
-    # message = "test"
-    # key = "12345"
-    # en = encoder.aes_encrypt(message, key)
-    # print(en)
-    # print(encoder.aes_decrypt(en, key))
-
     def blowfish_encrypt(self, plain_text: str, key: str) -> str:
         """
         Blowfish algo encryption
@@ -111,10 +104,3 @@ class Encoder(object):
         last_byte = msg[-1]
         msg = msg[:- (last_byte if type(last_byte) is int else ord(last_byte))]
         return repr(msg)
-
-    # encoder = Encoder()
-    # msg = "test"
-    # key = "12345"
-    # en = encoder.blowfish_encrypt(msg, key)
-    # print(en)
-    # print(encoder.blowfish_decrypt(en, key))
