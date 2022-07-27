@@ -10,7 +10,7 @@ from Crypto.Cipher import AES, Blowfish
 class Encoder(object):
 
     def __init__(self):
-        self.block_size = AES.block_size  # AES algo
+        self.block_size = AES.block_size
 
     def __pad(self, plain_text: str) -> str:
         number_of_bytes_to_pad = self.block_size - \
