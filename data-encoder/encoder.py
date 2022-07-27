@@ -1,9 +1,10 @@
 import hashlib
 from base64 import b64decode, b64encode
 from typing import Union
+from struct import pack
 
 from Crypto import Random
-from Crypto.Cipher import AES
+from Crypto.Cipher import AES, Blowfish
 
 
 class Encoder(object):
@@ -25,6 +26,7 @@ class Encoder(object):
 
     def aes_encrypt(self, plain_text: str, key: str) -> str:
         """
+        AES algo encryption
         Algorithm - AES
         One of the best ways to encrypt data, 
         in this case using 256 bit form
@@ -45,6 +47,7 @@ class Encoder(object):
 
     def aes_decrypt(self, encrypted_text: str, key: str) -> str:
         """
+        AES algo decryption
 
         Args:
             encrypted_text (str): encrypted text
@@ -67,3 +70,51 @@ class Encoder(object):
     # en = encoder.aes_encrypt(message, key)
     # print(en)
     # print(encoder.aes_decrypt(en, key))
+
+    def blowfish_encrypt(self, plain_text: str, key: str) -> str:
+        """
+        Blowfish algo encryption
+
+        Args:
+            plain_text (str): source text to encrypt
+            key (str): the key with which the message will be decrypted
+
+        Returns:
+            str: encrypted text
+        """
+        bs = Blowfish.block_size
+        cipher = Blowfish.new(key.encode("utf-8"), Blowfish.MODE_CBC)
+        plen = bs - len(plain_text) % bs
+        padding = [plen]*plen
+        padding = pack('b'*plen, *padding)
+        encrypted = cipher.iv + \
+            cipher.encrypt(
+                (plain_text + padding.decode("utf-8")).encode("utf-8"))
+        return encrypted
+
+    def blowfish_decrypt(self, encrypted_text: str, key: str) -> str:
+        """
+        Blowfish algo decryption
+
+        Args:
+            encrypted_text (str): encrypted text
+            key (str): key used for encryption
+
+        Returns:
+            str: source text
+        """
+        bs = Blowfish.block_size
+        iv = encrypted_text[:bs]
+        ciphertext = encrypted_text[bs:]
+        cipher = Blowfish.new(key.encode("utf-8"), Blowfish.MODE_CBC, iv)
+        msg = cipher.decrypt(ciphertext)
+        last_byte = msg[-1]
+        msg = msg[:- (last_byte if type(last_byte) is int else ord(last_byte))]
+        return repr(msg)
+
+    # encoder = Encoder()
+    # msg = "test"
+    # key = "12345"
+    # en = encoder.blowfish_encrypt(msg, key)
+    # print(en)
+    # print(encoder.blowfish_decrypt(en, key))
